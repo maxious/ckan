@@ -52,7 +52,7 @@
   {% block package_info %}
     <div class="module context-info">
       <div class="module-content">
-        <h1 class="heading">{{ pkg.title or pkg.name }}</h1>
+        <h1 class="heading" property="dc:title">{{ pkg.title or pkg.name }}</h1>
         <div class="nums">
           <dl>
             <dt>{{ _('Followers') }}</dt>

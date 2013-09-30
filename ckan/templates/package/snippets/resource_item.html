@@ -23,7 +23,7 @@
     <ul class="dropdown-menu">
       {% block resource_item_explore_links %}
       <li>
-        <a href="{{ url }}">
+        <a href="{{ url }}" property="accessURL">
           {% if res.can_be_previewed %}
             <i class="icon-bar-chart"></i>
             {{ _('Preview') }}
@@ -34,7 +34,7 @@
         </a>
       </li>
       <li>
-        <a href="{{ res.url }}" class="resource-url-analytics" target="_blank">
+        <a href="{{ res.url }}" class="resource-url-analytics" target="_blank" property="accessURL">
           {% if res.can_be_previewed %}
             <i class="icon-download"></i>
             {{ _('Download') }}

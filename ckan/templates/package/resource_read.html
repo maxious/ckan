@@ -20,7 +20,7 @@
 
 {% block pre_primary %}
   {% block resource %}
-    <section class="module module-resource">
+    <section class="module module-resource" typeof="dcat:Distribution">
       <div class="module-content">
         <div class="actions">
           {% block resource_actions %}
@@ -52,13 +52,13 @@
           {% endblock %}
         </div>
         {% block resource_content %}
-          {% block resource_read_title %}<h1 class="page-heading">{{ h.resource_display_name(res) | truncate(50) }}</h1>{% endblock %}
+          {% block resource_read_title %}<h1 class="page-heading" property="dcterms:title">{{ h.resource_display_name(res) | truncate(50) }}</h1>{% endblock %}
           {% block resource_read_url %}
             {% if res.url %}
-              <p class="muted ellipsis">{{ _('URL:') }} <a href="{{ res.url }}" title="{{ res.url }}">{{ res.url }}</a></p>
+              <p class="muted ellipsis">{{ _('URL:') }} <a href="{{ res.url }}" title="{{ res.url }}" property="foaf:homepage">{{ res.url }}</a></p>
             {% endif %}
           {% endblock %}
-          <div class="prose notes" property="rdfs:label">
+          <div class="prose notes" property="rdfs:label dcterms:description">
             {% if res.description %}
               {{ h.render_markdown(res.description) }}
             {% else %}
@@ -95,15 +95,15 @@
             <tbody>
               <tr>
                 <th scope="row">{{ _('Last updated') }}</th>
-                <td>{{ h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created) or _('unknown') }}</td>
+                <td property="dcterms:modified">{{ h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created) or _('unknown') }}</td>
               </tr>
               <tr>
                 <th scope="row">{{ _('Created') }}</th>
-                <td>{{ h.render_datetime(res.created) or _('unknown') }}</td>
+                <td property="dcterms:issued">{{ h.render_datetime(res.created) or _('unknown') }}</td>
               </tr>
               <tr>
                 <th scope="row">{{ _('Format') }}</th>
-                <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
+                <td property="dcterms:format">{{ h.resource_mimetype(res) or _('unknown') }}</td>
               </tr>
               <tr>
                 <th scope="row">{{ _('License') }}</th>

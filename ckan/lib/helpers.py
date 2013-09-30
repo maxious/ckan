@@ -12,6 +12,7 @@ import re
 import urllib
 import pprint
 import copy
+import mimetypes
 from urllib import urlencode
 
 from paste.deploy.converters import asbool
@@ -1035,6 +1036,22 @@ def resource_link(resource_dict, package_id):
                   id=package_id,
                   resource_id=resource_dict['id'])
     return link_to(text, url)
+
+def resource_mimetype(resource_dict):
+    # mimetype inside a zip as detected by datastorer
+    if resource_dict.mimetype_inner:
+	return resource_dict.mimetype_inner
+    # mimetype inside a zip as detected by datastorer
+    if resource_dict.mimetype:
+	return resource_dict.mimetype
+    # mimetype guessed from url file extension
+    (type, encoding) = mimetypes.guess_type(resource_dict['url'])
+    if type:
+	return type
+    #format specified by user which can be a mimetype
+    if resource_dict.format:
+ 	return resource_dict.format
+    return None
 
 
 def related_item_link(related_item_dict):
